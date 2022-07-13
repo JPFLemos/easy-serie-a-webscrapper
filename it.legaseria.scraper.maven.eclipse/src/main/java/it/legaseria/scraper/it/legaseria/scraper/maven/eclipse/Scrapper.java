@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Locale;
 
+import org.apache.commons.lang3.StringUtils;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -16,11 +17,11 @@ public class Scrapper {
 
     private HashMap<Integer, ArrayList<MatchDay>> rounds;
 
-    public void giornate(int daQuesta, int finoQuesta) {
+    public void giornate(int daQuesta, int finoQuesta, String season) {
         this.rounds = new HashMap<>();
 
         for (int page = daQuesta; page <= finoQuesta; page++) {
-            String url = "http://www.legaseriea.it/it/serie-a/calendario-e-risultati/2020-21/UNICO/UNI/" + String.valueOf(page);
+            String url = "http://www.legaseriea.it/it/serie-a/calendario-e-risultati/" + season + "/UNICO/UNI/" + String.valueOf(page);
 
             try {
                 // Creating HashMap to store all match of this round;
@@ -44,7 +45,7 @@ public class Scrapper {
 
                 // In case of any errors we throw an exception;
             } catch (IOException e) {
-                e.printStackTrace();
+                System.out.println("Error connecting to the website, make sure the season is valid");
             }
         }
     }
