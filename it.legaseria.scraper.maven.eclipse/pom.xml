@@ -4,11 +4,11 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>it.legaseria.scraper</groupId>
-  <artifactId>it.legaseria.scraper.maven.eclipse</artifactId>
+  <groupId>it.jp</groupId>
+  <artifactId>legaseriea.scrapper</artifactId>
   <version>0.0.1-SNAPSHOT</version>
 
-  <name>it.legaseria.scraper.maven.eclipse</name>
+  <name>it.jp.legaseriea.scraper</name>
 
 
   <properties>
@@ -43,6 +43,16 @@
       <groupId>org.apache.commons</groupId>
       <artifactId>commons-collections4</artifactId>
       <version>4.4</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-api</artifactId>
+      <version>2.18.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>2.18.0</version>
     </dependency>
   </dependencies>
 

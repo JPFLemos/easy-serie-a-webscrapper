@@ -1,6 +1,7 @@
-package it.legaseria.scraper.it.legaseria.scraper.maven.eclipse;
+package it.jp.legaserie.scrapper;
 
-import java.time.LocalTime;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
 public class Match {
 
@@ -10,7 +11,8 @@ public class Match {
     private String date;
     private String time;
     private int round;
-    private boolean isHighlighted;
+
+    private static final Logger logger = LogManager.getLogger();
 
     public Match(String teamOne, String teamTwo, int round, String date, String channel, String timeAsString) {
         this.teamOne = teamOne;
@@ -20,23 +22,6 @@ public class Match {
         this.time = timeAsString;
         this.round = round;
 
-    }
-
-    public Match(String teamOne, String teamTwo, int round) {
-        this.teamOne = teamOne;
-        this.teamTwo = teamTwo;
-        this.round = round;
-        this.time = "Informazione non disponibile";
-        this.channel = "Informazione non disponibile";
-        this.date = "Informazione non disponibile";
-    }
-
-    public Match(String teamOne, String teamTwo, int round, String date) {
-        this.teamOne = teamOne;
-        this.teamTwo = teamTwo;
-        this.round = round;
-        this.time = "Informazione non disponibile";
-        this.channel = "Informazione non disponibile";
     }
 
     public String getChannel() {
@@ -63,16 +48,40 @@ public class Match {
         this.time = time;
     }
 
+    public void setHomeTeam(String homeTeam) {
+        this.teamOne = homeTeam;
+    }
+
+    public void setTeamTwo(String teamTwo) {
+        this.teamTwo = teamTwo;
+    }
+
+    public void setChannel(String channel) {
+        this.channel = channel;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public int getRound() {
+        return round;
+    }
+
+    public void setRound(int round) {
+        this.round = round;
+    }
+
     public boolean isHighlighted() {
         return (this.teamOne.equals("Hellas") || this.teamTwo.equals("Hellas"));
     }
 
     public void print() {
-        System.out.println("Ora: " + time + " Diretta: " + channel);
+        logger.trace("Ora: {} Diretta: {}", time, channel);
         if (isHighlighted()) {
-            System.out.println("XXXXXXXXXXXXXXXX " + teamOne + " X " + teamTwo + " XXXXXXXXXXXXXXXX" + "\n");
+            logger.trace("XXXXXXXXXXXXXXXX {} X {} XXXXXXXXXXXXXXXX \n",teamOne, teamTwo);
         } else {
-            System.out.println(teamOne + " X " + teamTwo + "\n");
+            logger.trace("{} X {} \n" , teamOne, teamTwo);
         }
     }
 }

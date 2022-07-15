@@ -1,11 +1,13 @@
-package it.legaseria.scraper.it.legaseria.scraper.maven.eclipse;
+package it.jp.legaserie.scrapper;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 
 public class MatchDay {
 
-    private String displayDate;
-    private ArrayList<Match> matches;
+    private final String displayDate;
+    private final ArrayList<Match> matches;
 
     public MatchDay(String displayDate) {
         this.displayDate = displayDate;
@@ -17,12 +19,17 @@ public class MatchDay {
         this.matches.add(match);
     }
 
-    public ArrayList<Match> getMatches() {
+    public List<Match> getMatches() {
         return this.matches;
     }
 
     public String getDate() {
         return this.displayDate;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(displayDate, matches);
     }
 
     @Override
@@ -36,11 +43,7 @@ public class MatchDay {
         }
 
         MatchDay matchDayOther = (MatchDay) other;
-        if (this.displayDate.equals(matchDayOther.displayDate)) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.displayDate.equals(matchDayOther.displayDate);
 
     }
 }
