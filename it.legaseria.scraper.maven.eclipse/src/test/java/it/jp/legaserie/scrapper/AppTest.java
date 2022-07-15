@@ -1,4 +1,4 @@
-package it.legaseria.scraper.it.legaseria.scraper.maven.eclipse;
+package it.jp.legaserie.scrapper;
 
 import static org.junit.Assert.assertTrue;
 
