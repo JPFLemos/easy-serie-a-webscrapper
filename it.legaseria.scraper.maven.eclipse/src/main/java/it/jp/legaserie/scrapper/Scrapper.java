@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Locale;
 
 import java.util.Map;
@@ -32,7 +33,7 @@ public class Scrapper {
             String url = "http://www.legaseriea.it/it/serie-a/calendario-e-risultati/" + season + "/UNICO/UNI/" + page;
 
             try {
-                HashMap<MatchDay, MatchDay> daysOfPlay = new HashMap<>();
+                LinkedHashMap<MatchDay, MatchDay> daysOfPlay = new LinkedHashMap<>();
                 roundMap.put(page, daysOfPlay);
 
                 Document doc = Jsoup.connect(url)
@@ -56,7 +57,7 @@ public class Scrapper {
         return roundMap;
     }
 
-    private static void extractData(Elements repositories, HashMap<MatchDay, MatchDay> daysOfPlay, int round) {
+    private static void extractData(Elements repositories, LinkedHashMap<MatchDay, MatchDay> daysOfPlay, int round) {
 
         for (Element repo : repositories) {
             String matchDetails = repo.getElementsByClass("datipartita")
@@ -96,6 +97,7 @@ public class Scrapper {
 
         }
 
+        
         for (MatchDay matchday : daysOfPlay.keySet()) {
 
             logger.trace("XXXXXXX");
