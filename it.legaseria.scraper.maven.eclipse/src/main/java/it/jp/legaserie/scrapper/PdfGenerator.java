@@ -17,8 +17,6 @@ import org.apache.logging.log4j.Logger;
 
 public class PdfGenerator {
 
-    private static final Logger logger = LogManager.getLogger();
-
     private PdfGenerator() {
         throw new IllegalStateException("Static Class");
     }
@@ -31,7 +29,7 @@ public class PdfGenerator {
             pdfDoc.close();
 
         } catch (IOException | DocumentException exception) {
-            logger.trace("Errore nella generazione del PDF \n \n");
+            System.out.print("Errore nella generazione del PDF \n \n");
         }
     }
 
@@ -56,7 +54,7 @@ public class PdfGenerator {
 
         for (int i = startRound; i <= endRound; i++) {
             Chunk giornataText = new Chunk("\n" + "Giornata " + i + "\n", giornataFont);
-            logger.trace("Adding giornata {}", i);
+            System.out.print("Adding giornata " + i);
             main.add(emptyLine);
             main.add(giornataText);
             main.add(emptyLine);

@@ -12,8 +12,6 @@ public class Match {
     private String time;
     private int round;
 
-    private static final Logger logger = LogManager.getLogger();
-
     public Match(String teamOne, String teamTwo, int round, String date, String channel, String timeAsString) {
         this.teamOne = teamOne;
         this.teamTwo = teamTwo;
@@ -77,11 +75,11 @@ public class Match {
     }
 
     public void print() {
-        logger.trace("Ora: {} Diretta: {}", time, channel);
+        System.out.print("Ora: " + time +" Diretta: " +channel);
         if (isHighlighted()) {
-            logger.trace("XXXXXXXXXXXXXXXX {} X {} XXXXXXXXXXXXXXXX \n",teamOne, teamTwo);
+            System.out.print("XXXXXXXXXXXXXXXX "+ teamOne +" X "+ teamTwo +" XXXXXXXXXXXXXXXX \n");
         } else {
-            logger.trace("{} X {} \n" , teamOne, teamTwo);
+            System.out.print(teamOne + " X " + teamTwo +"\n");
         }
     }
 }

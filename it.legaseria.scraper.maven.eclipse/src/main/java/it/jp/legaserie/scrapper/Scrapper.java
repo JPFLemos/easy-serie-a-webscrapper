@@ -19,8 +19,6 @@ public class Scrapper {
 
     private static final String NO_INFO_AVAILABLE_IT = "Informazione non disponibile";
 
-    private static final Logger logger = LogManager.getLogger();
-
 
     private Scrapper() {
         throw new IllegalStateException("Static Class");
@@ -39,9 +37,9 @@ public class Scrapper {
                 Document doc = Jsoup.connect(url)
                     .get();
 
-                logger.trace("");
-                logger.trace("############## GIORNATA {} ##############", page);
-                logger.trace("");
+                System.out.print("");
+                System.out.print("############## GIORNATA "+ page +" ##############");
+                System.out.print("");
 
                 // Fetching round info and all matches
                 Elements repos = doc.getElementsByClass("box-partita");
@@ -50,7 +48,7 @@ public class Scrapper {
                 extractData(repos, daysOfPlay, page);
 
             } catch (IOException e) {
-                logger.trace("Error connecting to the website, make sure the season is valid");
+                System.out.print("Error connecting to the website, make sure the season is valid");
             }
         }
 
@@ -100,9 +98,9 @@ public class Scrapper {
         
         for (MatchDay matchday : daysOfPlay.keySet()) {
 
-            logger.trace("XXXXXXX");
-            logger.trace(matchday.getDate());
-            logger.trace("XXXXXXX");
+            System.out.print("XXXXXXX");
+            System.out.print(matchday.getDate());
+            System.out.print("XXXXXXX");
 
             for (Match match : matchday.getMatches()) {
                 match.print();

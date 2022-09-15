@@ -13,8 +13,6 @@ import org.apache.logging.log4j.Logger;
 
 public class UserInterface {
 
-    private static final Logger logger = LogManager.getLogger();
-
     private static final Integer START_ROUND_KEY = 2;
 
     private static final Integer END_ROUND_KEY = 1;
@@ -34,7 +32,7 @@ public class UserInterface {
         Map<Integer, Map<MatchDay, MatchDay>> rounds = Scrapper.getMatches(limitRounds.get(START_ROUND_KEY), limitRounds.get(END_ROUND_KEY), season);
         PdfGenerator.generatePdf(limitRounds.get(START_ROUND_KEY), limitRounds.get(END_ROUND_KEY), rounds);
 
-        logger.trace("Finito?? ENTER per chiudere");
+        System.out.print("Finito?? ENTER per chiudere");
         scan.nextLine();
 
         scan.close();
@@ -47,19 +45,19 @@ public class UserInterface {
 
         while (limits) {
             try {
-                logger.trace("Da qualle giornata? da 1 a 38");
+                System.out.print("Da qualle giornata? da 1 a 38");
                 int startRound = Integer.parseInt(scan.nextLine().trim());
 
-                logger.trace("Fino qualle giornata? da {} a 38", startRound);
+                System.out.print("Fino qualle giornata? da "  + startRound +" a 38");
                 int endRound = Integer.parseInt(scan.nextLine().trim());
                 if (startRound <= 0 || endRound < startRound || endRound > 38) {
-                    logger.trace("Intervalo invalido, prova ancora \n \n");
+                    System.out.print("Intervalo invalido, prova ancora \n \n");
                     continue;
                 }
                 limitRounds.put(START_ROUND_KEY, startRound);
                 limitRounds.put(END_ROUND_KEY, endRound);
             } catch (NumberFormatException e) {
-                logger.trace("dato invalido, prova ancora \n \n");
+                System.out.print("dato invalido, prova ancora \n \n");
                 continue;
             }
 
@@ -72,10 +70,24 @@ public class UserInterface {
 
         String pattern = "\\d\\d\\d\\d-\\d\\d";
         Pattern r = Pattern.compile(pattern);
+        
+        LocalDate today = LocalDate.now();
+        int currentYear = today.getYear();
+        int currentMonth = today.getMonthValue();
+        String firstYear = "";
+        String secondYear = "";
+        if (currentMonth > 5) {
+            firstYear = String.valueOf(currentYear);
+            secondYear = String.valueOf(currentYear + 1);
+        } else {
+        	firstYear = String.valueOf(currentYear - 1);
+        	secondYear = String.valueOf(currentYear);
+        }
+        String defaultSeason = firstYear + "-" + StringUtils.substring(secondYear, 2);
 
         String season = "";
         while (true) {
-            logger.trace("Quale staggione? (es: 2022-23)");
+            System.out.print("Quale staggione? (es: 2021-22), premi invio per la staggione " + defaultSeason);
             season = scan.nextLine().trim();
             Matcher m = r.matcher(season);
 
@@ -85,22 +97,14 @@ public class UserInterface {
             if (valid){
                 break;
             } else {
-                logger.trace("Dato invalido, prova ancora");
+                System.out.print("Dato invalido, prova ancora");
             }
         }
 
-        LocalDate today = LocalDate.now();
-        int currentYear = today.getYear();
-        int currentMonth = today.getMonthValue();
-        String firstYear = "";
-        String secondYear = "";
-        if (currentMonth > 5) {
-            firstYear = String.valueOf(currentYear);
-            secondYear = String.valueOf(currentYear - 1);
-        }
-        String defaultSeason = firstYear + StringUtils.substring(secondYear, 2);
 
         season = !StringUtils.isBlank(season) ? season : defaultSeason;
+        
+        System.out.print("Stagione " + season + "\n");
         return season;
     }
 
